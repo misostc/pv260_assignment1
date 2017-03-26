@@ -20,10 +20,6 @@ public abstract class Core {
     protected ScreenManager sm;
     private boolean running;
 
-    public void stop() {
-        running = false;
-    }
-
     public void run() {
         try {
             init();
