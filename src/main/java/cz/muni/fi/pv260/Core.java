@@ -3,11 +3,10 @@ package cz.muni.fi.pv260;
 import cz.muni.fi.pv260.graphics.ScreenManager;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 abstract class Core {
 
-    ScreenManager sm;
+    ScreenManager screenManager;
     private boolean running;
 
     void run() {
@@ -15,27 +14,22 @@ abstract class Core {
             init();
             gameLoop();
         } finally {
-            sm.restoreScreen();
+            screenManager.restoreScreen();
         }
     }
 
     void init() {
-        sm = new ScreenManager();
-        sm.enterFullScreen();
-        Window w = sm.getFullScreenWindow();
-        w.setFont(new Font("Arial", Font.PLAIN, 20));
-        w.setBackground(Color.WHITE);
-        w.setForeground(Color.RED);
-        w.setCursor(w.getToolkit().createCustomCursor(new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), "null"));
+        screenManager = new ScreenManager();
+        screenManager.enterFullScreen();
+        screenManager.hideCursor();
         running = true;
     }
 
     private void gameLoop() {
         while (running) {
-            Graphics2D g = sm.getGraphics();
-            draw(g);
-            g.dispose();
-            sm.update();
+            Graphics2D context = screenManager.startDrawing();
+            draw(context);
+            screenManager.finishDrawing(context);
 
             try {
                 Thread.sleep(20);
@@ -44,6 +38,6 @@ abstract class Core {
         }
     }
 
-    protected abstract void draw(Graphics2D g);
+    protected abstract void draw(Graphics2D context);
 
 }
