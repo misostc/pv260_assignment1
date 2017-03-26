@@ -3,11 +3,10 @@ package cz.muni.fi.pv260;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 public class ScreenManager {
 
-    private GraphicsDevice vc;
+    private final GraphicsDevice vc;
 
     public ScreenManager() {
         GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -17,24 +16,21 @@ public class ScreenManager {
     public DisplayMode findFirstCompatibaleMode(DisplayMode[] modes) {
 
         DisplayMode goodModes[] = vc.getDisplayModes();
-        for (int x = 0; x < modes.length; x++) {
-            for (int y = 0; y < goodModes.length; y++) {
-                if (displayModesMatch(modes[x], goodModes[y])) {
-                    return modes[x];
+        for (DisplayMode mode : modes) {
+            for (DisplayMode goodMode : goodModes) {
+                if (displayModesMatch(mode, goodMode)) {
+                    return mode;
                 }
             }
         }
         return null;
     }
 
-    public boolean displayModesMatch(DisplayMode m1, DisplayMode m2) {
+    private boolean displayModesMatch(DisplayMode m1, DisplayMode m2) {
         if (m1.getWidth() != m2.getWidth() || m1.getHeight() != m2.getHeight()) {
             return false;
         }
-        if (m1.getBitDepth() != DisplayMode.BIT_DEPTH_MULTI && m2.getBitDepth() != DisplayMode.BIT_DEPTH_MULTI && m1.getBitDepth() != m2.getBitDepth()) {
-            return false;
-        }
-        return !(m1.getRefreshRate() != DisplayMode.REFRESH_RATE_UNKNOWN && m2.getRefreshRate() != DisplayMode.REFRESH_RATE_UNKNOWN && m1.getRefreshRate() != m2.getRefreshRate());
+        return !(m1.getBitDepth() != DisplayMode.BIT_DEPTH_MULTI && m2.getBitDepth() != DisplayMode.BIT_DEPTH_MULTI && m1.getBitDepth() != m2.getBitDepth()) && !(m1.getRefreshRate() != DisplayMode.REFRESH_RATE_UNKNOWN && m2.getRefreshRate() != DisplayMode.REFRESH_RATE_UNKNOWN && m1.getRefreshRate() != m2.getRefreshRate());
     }
 
     public void setFullScreen(DisplayMode dm) {

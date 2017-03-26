@@ -3,7 +3,7 @@ package cz.muni.fi.pv260;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class Core {
+abstract class Core {
 
     private static final DisplayMode modes[] =
             {
@@ -17,10 +17,10 @@ public abstract class Core {
                     new DisplayMode(640, 480, 24, 0),
                     new DisplayMode(640, 480, 16, 0),
             };
-    protected ScreenManager sm;
+    ScreenManager sm;
     private boolean running;
 
-    public void run() {
+    void run() {
         try {
             init();
             gameLoop();
@@ -29,7 +29,7 @@ public abstract class Core {
         }
     }
 
-    public void init() {
+    void init() {
         sm = new ScreenManager();
         DisplayMode dm = sm.findFirstCompatibaleMode(modes);
         sm.setFullScreen(dm);
@@ -41,9 +41,8 @@ public abstract class Core {
         running = true;
     }
 
-    public void gameLoop() {
-        long startTime = System.currentTimeMillis();
-        long cumTime = startTime;
+    private void gameLoop() {
+        long cumTime = System.currentTimeMillis();
 
         while (running) {
             long timePassed = System.currentTimeMillis() - cumTime;
@@ -61,9 +60,9 @@ public abstract class Core {
         }
     }
 
-    public void update(long timePassed) {
+    private void update(long timePassed) {
     }
 
-    public abstract void draw(Graphics2D g);
+    protected abstract void draw(Graphics2D g);
 
 }

@@ -6,17 +6,17 @@ import java.util.ArrayList;
 
 public class yourclass extends Core implements KeyListener, MouseListener,
         MouseMotionListener {
-    int centrex1 = 40;
-    int centrey1 = 40;
-    int centrex2 = 600;
-    int centrey2 = 440;
-    int currentDirection1 = 1;
-    int currentDirection2 = 3;
-    int moveAmount = 5;
-    ArrayList<Integer> pathx1 = new ArrayList();
-    ArrayList<Integer> pathy1 = new ArrayList();
-    ArrayList<Integer> pathx2 = new ArrayList();
-    ArrayList<Integer> pathy2 = new ArrayList();
+    private int centrex1 = 40;
+    private int centrey1 = 40;
+    private int centrex2 = 600;
+    private int centrey2 = 440;
+    private int currentDirection1 = 1;
+    private int currentDirection2 = 3;
+    private final int moveAmount = 5;
+    private final ArrayList<Integer> pathx1 = new ArrayList();
+    private final ArrayList<Integer> pathy1 = new ArrayList();
+    private final ArrayList<Integer> pathx2 = new ArrayList();
+    private final ArrayList<Integer> pathy2 = new ArrayList();
 
     public static void main(String[] args) {
         new yourclass().run();
