@@ -1,6 +1,6 @@
 package cz.muni.fi.pv260.tron.tests.unit;
 
-import cz.muni.fi.pv260.AwtUtils;
+import cz.muni.fi.pv260.graphics.AwtUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

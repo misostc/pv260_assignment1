@@ -1,5 +1,7 @@
 package cz.muni.fi.pv260;
 
+import cz.muni.fi.pv260.graphics.ScreenManager;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 

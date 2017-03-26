@@ -1,4 +1,4 @@
-package cz.muni.fi.pv260;
+package cz.muni.fi.pv260.graphics;
 
 import java.awt.*;
 
