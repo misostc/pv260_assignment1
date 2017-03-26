@@ -3,24 +3,27 @@ package cz.muni.fi.pv260;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
-public class ScreenManager {
+class ScreenManager {
 
-    private GraphicsDevice vc;
+    private final GraphicsDevice vc;
 
     public ScreenManager() {
         GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
         vc = e.getDefaultScreenDevice();
     }
 
+<<<<<<< HEAD
     public DisplayMode findFirstCompatibaleMode(DisplayMode[] modes) {
 
+=======
+    public DisplayMode findFirstCompatibleMode(DisplayMode[] modes) {
+>>>>>>> 1501d90cbe3ef41a17a1a5d6f0064a797478aa2f
         DisplayMode goodModes[] = vc.getDisplayModes();
-        for (int x = 0; x < modes.length; x++) {
-            for (int y = 0; y < goodModes.length; y++) {
-                if (displayModesMatch(modes[x], goodModes[y])) {
-                    return modes[x];
+        for (DisplayMode mode : modes) {
+            for (DisplayMode goodMode : goodModes) {
+                if (displayModesMatch(mode, goodMode)) {
+                    return mode;
                 }
             }
         }
