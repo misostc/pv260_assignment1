@@ -14,10 +14,6 @@ public class ScreenManager {
         vc = e.getDefaultScreenDevice();
     }
 
-    public DisplayMode[] getCompatibleDisplayModes() {
-        return vc.getDisplayModes();
-    }
-
     public DisplayMode findFirstCompatibaleMode(DisplayMode[] modes) {
 
         DisplayMode goodModes[] = vc.getDisplayModes();
@@ -31,10 +27,6 @@ public class ScreenManager {
         return null;
     }
 
-    public DisplayMode getCurrentDM() {
-        return vc.getDisplayMode();
-    }
-
     public boolean displayModesMatch(DisplayMode m1, DisplayMode m2) {
         if (m1.getWidth() != m2.getWidth() || m1.getHeight() != m2.getHeight()) {
             return false;
@@ -42,10 +34,7 @@ public class ScreenManager {
         if (m1.getBitDepth() != DisplayMode.BIT_DEPTH_MULTI && m2.getBitDepth() != DisplayMode.BIT_DEPTH_MULTI && m1.getBitDepth() != m2.getBitDepth()) {
             return false;
         }
-        if (m1.getRefreshRate() != DisplayMode.REFRESH_RATE_UNKNOWN && m2.getRefreshRate() != DisplayMode.REFRESH_RATE_UNKNOWN && m1.getRefreshRate() != m2.getRefreshRate()) {
-            return false;
-        }
-        return true;
+        return !(m1.getRefreshRate() != DisplayMode.REFRESH_RATE_UNKNOWN && m2.getRefreshRate() != DisplayMode.REFRESH_RATE_UNKNOWN && m1.getRefreshRate() != m2.getRefreshRate());
     }
 
     public void setFullScreen(DisplayMode dm) {
@@ -112,17 +101,6 @@ public class ScreenManager {
             w.dispose();
         }
         vc.setFullScreenWindow(null);
-    }
-
-    public BufferedImage createCompatibaleimage(int w, int h, int t) {
-        Window win = vc.getFullScreenWindow();
-        if (win != null) {
-            GraphicsConfiguration gc = win.getGraphicsConfiguration();
-            return gc.createCompatibleImage(w, h, t);
-        } else {
-            return null;
-        }
-
     }
 
 }
