@@ -31,7 +31,7 @@ abstract class Core {
 
     void init() {
         sm = new ScreenManager();
-        DisplayMode dm = sm.findFirstCompatibaleMode(modes);
+        DisplayMode dm = sm.findFirstCompatibleMode(modes);
         sm.setFullScreen(dm);
         Window w = sm.getFullScreenWindow();
         w.setFont(new Font("Arial", Font.PLAIN, 20));
