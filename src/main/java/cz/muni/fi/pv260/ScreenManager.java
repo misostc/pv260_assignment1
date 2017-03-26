@@ -13,12 +13,8 @@ class ScreenManager {
         vc = e.getDefaultScreenDevice();
     }
 
-<<<<<<< HEAD
-    public DisplayMode findFirstCompatibaleMode(DisplayMode[] modes) {
 
-=======
     public DisplayMode findFirstCompatibleMode(DisplayMode[] modes) {
->>>>>>> 1501d90cbe3ef41a17a1a5d6f0064a797478aa2f
         DisplayMode goodModes[] = vc.getDisplayModes();
         for (DisplayMode mode : modes) {
             for (DisplayMode goodMode : goodModes) {
