@@ -111,34 +111,58 @@ public class Main extends Core implements KeyListener, MouseListener,
         }
     }
 
+
     public void keyPressed(KeyEvent e) {
-        switch(e.getKeyCode()) {
+        handlePlayerOne(e);
+        handlePlayerTwo(e);
+    }
+
+    private void handlePlayerTwo(KeyEvent e) {
+        switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
+                if (currentDirection2 != 2) {
+                    currentDirection2 = 0;
+                }
+                break;
+            case KeyEvent.VK_S:
+                if (currentDirection2 != 0) {
+                    currentDirection2 = 2;
+                }
+                break;
+            case KeyEvent.VK_D:
+                if (currentDirection2 != 3) {
+                    currentDirection2 = 1;
+                }
+            case KeyEvent.VK_A:
+                if (currentDirection2 != 1) {
+                    currentDirection2 = 3;
+                }
+        }
+    }
+
+    private void handlePlayerOne(KeyEvent e) {
+        switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
                 if (currentDirection1 != 2) {
                     currentDirection1 = 0;
                 }
                 break;
-            case KeyEvent.VK_S:
             case KeyEvent.VK_DOWN:
                 if (currentDirection1 != 0) {
                     currentDirection1 = 2;
                 }
                 break;
-            case KeyEvent.VK_D:
             case KeyEvent.VK_RIGHT:
                 if (currentDirection1 != 3) {
                     currentDirection1 = 1;
                 }
                 break;
-            case KeyEvent.VK_A:
             case KeyEvent.VK_LEFT:
                 if (currentDirection1 != 1) {
                     currentDirection1 = 3;
                 }
-                break;
-            }
         }
+    }
 
     public void keyReleased(KeyEvent e) {
 

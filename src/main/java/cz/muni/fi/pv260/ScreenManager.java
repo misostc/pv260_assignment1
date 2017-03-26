@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
-class ScreenManager {
+public class ScreenManager {
 
     private final GraphicsDevice vc;
 
