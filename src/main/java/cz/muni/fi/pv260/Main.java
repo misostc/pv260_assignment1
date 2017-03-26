@@ -1,5 +1,7 @@
 package cz.muni.fi.pv260;
 
+import cz.muni.fi.pv260.direction.Direction;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ public class Main extends Core implements KeyListener, MouseListener,
     public void init() {
         super.init();
 
-        Window w = sm.getFullScreenWindow();
+        Window w = screenManager.getFullScreenWindow();
         w.addKeyListener(this);
         w.addMouseListener(this);
         w.addMouseMotionListener(this);
@@ -37,18 +39,18 @@ public class Main extends Core implements KeyListener, MouseListener,
                 if (centerY1 > 0) {
                     centerY1 -= moveAmount;
                 } else {
-                    centerY1 = sm.getWindowHeight();
+                    centerY1 = screenManager.getWindowHeight();
                 }
                 break;
             case 1:
-                if (centerX1 < sm.getWindowWidth()) {
+                if (centerX1 < screenManager.getWindowWidth()) {
                     centerX1 += moveAmount;
                 } else {
                     centerX1 = 0;
                 }
                 break;
             case 2:
-                if (centerY1 < sm.getWindowHeight()) {
+                if (centerY1 < screenManager.getWindowHeight()) {
                     centerY1 += moveAmount;
                 } else {
                     centerY1 = 0;
@@ -58,7 +60,7 @@ public class Main extends Core implements KeyListener, MouseListener,
                 if (centerX1 > 0) {
                     centerX1 -= moveAmount;
                 } else {
-                    centerX1 = sm.getWindowWidth();
+                    centerX1 = screenManager.getWindowWidth();
                 }
                 break;
         }
@@ -67,18 +69,18 @@ public class Main extends Core implements KeyListener, MouseListener,
                 if (centerY2 > 0) {
                     centerY2 -= moveAmount;
                 } else {
-                    centerY2 = sm.getWindowHeight();
+                    centerY2 = screenManager.getWindowHeight();
                 }
                 break;
             case 1:
-                if (centerX2 < sm.getWindowWidth()) {
+                if (centerX2 < screenManager.getWindowWidth()) {
                     centerX2 += moveAmount;
                 } else {
                     centerX2 = 0;
                 }
                 break;
             case 2:
-                if (centerY2 < sm.getWindowHeight()) {
+                if (centerY2 < screenManager.getWindowHeight()) {
                     centerY2 += moveAmount;
                 } else {
                     centerY2 = 0;
@@ -88,7 +90,7 @@ public class Main extends Core implements KeyListener, MouseListener,
                 if (centerX2 > 0) {
                     centerX2 -= moveAmount;
                 } else {
-                    centerX2 = sm.getWindowWidth();
+                    centerX2 = screenManager.getWindowWidth();
                 }
                 break;
         }
@@ -102,7 +104,7 @@ public class Main extends Core implements KeyListener, MouseListener,
         pathX2.add(centerX2);
         pathY2.add(centerY2);
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, sm.getWindowWidth(), sm.getWindowHeight());
+        g.fillRect(0, 0, screenManager.getWindowWidth(), screenManager.getWindowHeight());
         for (int x = 0; x < pathX1.size(); x++) {
             g.setColor(Color.green);
             g.fillRect(pathX1.get(x), pathY1.get(x), 10, 10);
@@ -119,22 +121,22 @@ public class Main extends Core implements KeyListener, MouseListener,
     private void handlePlayerTwo(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
-                if (currentDirection2 != 2) {
-                    currentDirection2 = 0;
+                if (currentDirection2 != Direction.DOWN) {
+                    currentDirection2 = Direction.UP;
                 }
                 break;
             case KeyEvent.VK_S:
-                if (currentDirection2 != 0) {
-                    currentDirection2 = 2;
+                if (currentDirection2 != Direction.UP) {
+                    currentDirection2 = Direction.DOWN;
                 }
                 break;
             case KeyEvent.VK_D:
-                if (currentDirection2 != 3) {
-                    currentDirection2 = 1;
+                if (currentDirection2 != Direction.LEFT) {
+                    currentDirection2 = Direction.RIGHT;
                 }
             case KeyEvent.VK_A:
-                if (currentDirection2 != 1) {
-                    currentDirection2 = 3;
+                if (currentDirection2 != Direction.RIGHT) {
+                    currentDirection2 = Direction.LEFT;
                 }
         }
     }
@@ -142,23 +144,23 @@ public class Main extends Core implements KeyListener, MouseListener,
     private void handlePlayerOne(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-                if (currentDirection1 != 2) {
-                    currentDirection1 = 0;
+                if (currentDirection1 != Direction.DOWN) {
+                    currentDirection1 = Direction.UP;
                 }
                 break;
             case KeyEvent.VK_DOWN:
-                if (currentDirection1 != 0) {
-                    currentDirection1 = 2;
+                if (currentDirection1 != Direction.UP) {
+                    currentDirection1 = Direction.DOWN;
                 }
                 break;
             case KeyEvent.VK_RIGHT:
-                if (currentDirection1 != 3) {
-                    currentDirection1 = 1;
+                if (currentDirection1 != Direction.LEFT) {
+                    currentDirection1 = Direction.RIGHT;
                 }
                 break;
             case KeyEvent.VK_LEFT:
-                if (currentDirection1 != 1) {
-                    currentDirection1 = 3;
+                if (currentDirection1 != Direction.RIGHT) {
+                    currentDirection1 = Direction.LEFT;
                 }
         }
     }

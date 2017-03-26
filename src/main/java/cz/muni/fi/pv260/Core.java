@@ -6,7 +6,7 @@ import java.awt.*;
 
 abstract class Core {
 
-    ScreenManager screenManager;
+    protected ScreenManager screenManager;
     private boolean running;
 
     void run() {
