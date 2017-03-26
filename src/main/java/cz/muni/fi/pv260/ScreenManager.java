@@ -6,6 +6,18 @@ import java.awt.image.BufferStrategy;
 
 class ScreenManager {
 
+    private static final DisplayMode[] DISPLAY_MODES =
+            {
+                    //new DisplayMode(1920,1080,32,0),
+                    new DisplayMode(1680, 1050, 32, 0),
+                    //new DisplayMode(1280,1024,32,0),
+                    new DisplayMode(800, 600, 32, 0),
+                    new DisplayMode(800, 600, 24, 0),
+                    new DisplayMode(800, 600, 16, 0),
+                    new DisplayMode(640, 480, 32, 0),
+                    new DisplayMode(640, 480, 24, 0),
+                    new DisplayMode(640, 480, 16, 0),
+            };
     private final GraphicsDevice vc;
 
     public ScreenManager() {
@@ -14,9 +26,9 @@ class ScreenManager {
     }
 
 
-    public DisplayMode findFirstCompatibleMode(DisplayMode[] modes) {
+    public DisplayMode findFirstCompatibleMode() {
         DisplayMode goodModes[] = vc.getDisplayModes();
-        for (DisplayMode mode : modes) {
+        for (DisplayMode mode : ScreenManager.DISPLAY_MODES) {
             for (DisplayMode goodMode : goodModes) {
                 if (displayModesMatch(mode, goodMode)) {
                     return mode;
@@ -36,7 +48,8 @@ class ScreenManager {
         return !(m1.getRefreshRate() != DisplayMode.REFRESH_RATE_UNKNOWN && m2.getRefreshRate() != DisplayMode.REFRESH_RATE_UNKNOWN && m1.getRefreshRate() != m2.getRefreshRate());
     }
 
-    public void setFullScreen(DisplayMode dm) {
+    public void setFullScreen() {
+        DisplayMode dm = findFirstCompatibleMode();
         JFrame f = new JFrame();
         f.setUndecorated(true);
         f.setIgnoreRepaint(true);
