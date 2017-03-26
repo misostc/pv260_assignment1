@@ -37,18 +37,18 @@ public class Main extends Core implements KeyListener, MouseListener,
                 if (centerY1 > 0) {
                     centerY1 -= moveAmount;
                 } else {
-                    centerY1 = sm.getHeight();
+                    centerY1 = sm.getWindowHeight();
                 }
                 break;
             case 1:
-                if (centerX1 < sm.getWidth()) {
+                if (centerX1 < sm.getWindowWidth()) {
                     centerX1 += moveAmount;
                 } else {
                     centerX1 = 0;
                 }
                 break;
             case 2:
-                if (centerY1 < sm.getHeight()) {
+                if (centerY1 < sm.getWindowHeight()) {
                     centerY1 += moveAmount;
                 } else {
                     centerY1 = 0;
@@ -58,7 +58,7 @@ public class Main extends Core implements KeyListener, MouseListener,
                 if (centerX1 > 0) {
                     centerX1 -= moveAmount;
                 } else {
-                    centerX1 = sm.getWidth();
+                    centerX1 = sm.getWindowWidth();
                 }
                 break;
         }
@@ -67,18 +67,18 @@ public class Main extends Core implements KeyListener, MouseListener,
                 if (centerY2 > 0) {
                     centerY2 -= moveAmount;
                 } else {
-                    centerY2 = sm.getHeight();
+                    centerY2 = sm.getWindowHeight();
                 }
                 break;
             case 1:
-                if (centerX2 < sm.getWidth()) {
+                if (centerX2 < sm.getWindowWidth()) {
                     centerX2 += moveAmount;
                 } else {
                     centerX2 = 0;
                 }
                 break;
             case 2:
-                if (centerY2 < sm.getHeight()) {
+                if (centerY2 < sm.getWindowHeight()) {
                     centerY2 += moveAmount;
                 } else {
                     centerY2 = 0;
@@ -88,7 +88,7 @@ public class Main extends Core implements KeyListener, MouseListener,
                 if (centerX2 > 0) {
                     centerX2 -= moveAmount;
                 } else {
-                    centerX2 = sm.getWidth();
+                    centerX2 = sm.getWindowWidth();
                 }
                 break;
         }
@@ -102,7 +102,7 @@ public class Main extends Core implements KeyListener, MouseListener,
         pathX2.add(centerX2);
         pathY2.add(centerY2);
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, sm.getWidth(), sm.getHeight());
+        g.fillRect(0, 0, sm.getWindowWidth(), sm.getWindowHeight());
         for (int x = 0; x < pathX1.size(); x++) {
             g.setColor(Color.green);
             g.fillRect(pathX1.get(x), pathY1.get(x), 10, 10);
@@ -110,7 +110,6 @@ public class Main extends Core implements KeyListener, MouseListener,
             g.fillRect(pathX2.get(x), pathY2.get(x), 10, 10);
         }
     }
-
 
     public void keyPressed(KeyEvent e) {
         handlePlayerOne(e);

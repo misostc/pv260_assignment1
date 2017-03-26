@@ -19,7 +19,7 @@ abstract class Core {
 
     void init() {
         sm = new ScreenManager();
-        sm.setFullScreen();
+        sm.enterFullScreen();
         Window w = sm.getFullScreenWindow();
         w.setFont(new Font("Arial", Font.PLAIN, 20));
         w.setBackground(Color.WHITE);
