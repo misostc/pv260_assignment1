@@ -42,12 +42,7 @@ abstract class Core {
     }
 
     private void gameLoop() {
-        long cumTime = System.currentTimeMillis();
-
         while (running) {
-            long timePassed = System.currentTimeMillis() - cumTime;
-            cumTime += timePassed;
-            update(timePassed);
             Graphics2D g = sm.getGraphics();
             draw(g);
             g.dispose();
@@ -58,9 +53,6 @@ abstract class Core {
             } catch (Exception ex) {
             }
         }
-    }
-
-    private void update(long timePassed) {
     }
 
     protected abstract void draw(Graphics2D g);
