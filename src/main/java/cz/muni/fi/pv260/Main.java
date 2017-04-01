@@ -1,28 +1,17 @@
 package cz.muni.fi.pv260;
 
-import cz.muni.fi.pv260.direction.Direction;
-
 import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 public class Main extends Core implements KeyListener, MouseListener,
         MouseMotionListener {
-    private final int moveAmount = 5;
-    private final ArrayList<Integer> pathX1 = new ArrayList();
-    private final ArrayList<Integer> pathY1 = new ArrayList();
-    private final ArrayList<Integer> pathX2 = new ArrayList();
-    private final ArrayList<Integer> pathY2 = new ArrayList();
-    private int centerX1 = 40;
-    private int centerY1 = 40;
-    private int centerX2 = 600;
-    private int centerY2 = 440;
-    private int currentDirection1 = 1;
-    private int currentDirection2 = 3;
-
-    public static void main(String[] args) {
-        new Main().run();
-    }
+    int moveAmount = 5;
+    Player playerOne = new Player(new Point(40, 40), Direction.RIGHT);
+    Player playerTwo = new Player(new Point(600, 440), Direction.LEFT);
 
     public void init() {
         super.init();
@@ -33,135 +22,106 @@ public class Main extends Core implements KeyListener, MouseListener,
         w.addMouseMotionListener(this);
     }
 
-    public void draw(Graphics2D g) {
-        switch (currentDirection1) {
-            case 0:
-                if (centerY1 > 0) {
-                    centerY1 -= moveAmount;
+    public static void main(String[] args) {
+        new Main().run();
+    }
+
+    public void draw(Graphics2D graphics) {
+        addLatestPoint(playerOne);
+        addLatestPoint(playerTwo);
+        if (playerOne.getPoints().contains(playerTwo.getLatestPoint())) {
+            System.exit(0);
+        }
+        if (playerTwo.getPoints().contains(playerOne.getLatestPoint())){
+            System.exit(0);
+        }
+        graphics.setColor(Color.BLACK);
+        graphics.fillRect(0, 0, screenManager.getWindowWidth(), screenManager.getWindowHeight());
+        paintPoints(graphics);
+    }
+
+    private void paintPoints(Graphics2D graphics) {
+        for (int x = 0; x < playerOne.getPoints().size(); x++) {
+            Point p1 = playerOne.getPoints().get(x);
+            Point p2 = playerTwo.getPoints().get(x);
+            graphics.setColor(Color.green);
+            graphics.fillRect((int) p1.getX(), (int) p1.getY(), 10, 10);
+            graphics.setColor(Color.red);
+            graphics.fillRect((int) p2.getX(), (int) p2.getY(), 10, 10);
+        }
+    }
+
+    private void addLatestPoint(Player player) {
+        Point latest = player.getLatestPoint();
+        int x = (int) latest.getX();
+        int y = (int) latest.getY();
+        switch (player.getCurrentDirection()) {
+            case UP:
+                if (y > 0) {
+                    y -= moveAmount;
                 } else {
-                    centerY1 = screenManager.getWindowHeight();
+                    y = screenManager.getWindowHeight();
                 }
                 break;
-            case 1:
-                if (centerX1 < screenManager.getWindowWidth()) {
-                    centerX1 += moveAmount;
+            case RIGHT:
+                if (x < screenManager.getWindowWidth()) {
+                    x += moveAmount;
                 } else {
-                    centerX1 = 0;
+                    x = 0;
                 }
                 break;
-            case 2:
-                if (centerY1 < screenManager.getWindowHeight()) {
-                    centerY1 += moveAmount;
+            case DOWN:
+                if (y < screenManager.getWindowHeight()) {
+                    y += moveAmount;
                 } else {
-                    centerY1 = 0;
+                    y = 0;
                 }
                 break;
-            case 3:
-                if (centerX1 > 0) {
-                    centerX1 -= moveAmount;
+            case LEFT:
+                if (x > 0) {
+                    x -= moveAmount;
                 } else {
-                    centerX1 = screenManager.getWindowWidth();
+                    x = screenManager.getWindowWidth();
                 }
                 break;
         }
-        switch (currentDirection2) {
-            case 0:
-                if (centerY2 > 0) {
-                    centerY2 -= moveAmount;
-                } else {
-                    centerY2 = screenManager.getWindowHeight();
-                }
-                break;
-            case 1:
-                if (centerX2 < screenManager.getWindowWidth()) {
-                    centerX2 += moveAmount;
-                } else {
-                    centerX2 = 0;
-                }
-                break;
-            case 2:
-                if (centerY2 < screenManager.getWindowHeight()) {
-                    centerY2 += moveAmount;
-                } else {
-                    centerY2 = 0;
-                }
-                break;
-            case 3:
-                if (centerX2 > 0) {
-                    centerX2 -= moveAmount;
-                } else {
-                    centerX2 = screenManager.getWindowWidth();
-                }
-                break;
-        }
-        for (int x = 0; x < pathX1.size(); x++) {
-            if (((centerX1 == pathX1.get(x)) && (centerY1 == pathY1.get(x))) || ((centerX2 == pathX2.get(x)) && (centerY2 == pathY2.get(x))) || ((centerX1 == pathX2.get(x)) && (centerY1 == pathY2.get(x))) || ((centerX2 == pathX1.get(x)) && (centerY2 == pathY1.get(x)))) {
-                System.exit(0);
-            }
-        }
-        pathX1.add(centerX1);
-        pathY1.add(centerY1);
-        pathX2.add(centerX2);
-        pathY2.add(centerY2);
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, screenManager.getWindowWidth(), screenManager.getWindowHeight());
-        for (int x = 0; x < pathX1.size(); x++) {
-            g.setColor(Color.green);
-            g.fillRect(pathX1.get(x), pathY1.get(x), 10, 10);
-            g.setColor(Color.red);
-            g.fillRect(pathX2.get(x), pathY2.get(x), 10, 10);
-        }
+        player.addPoint(new Point(x, y));
     }
 
     public void keyPressed(KeyEvent e) {
-        handlePlayerOne(e);
-        handlePlayerTwo(e);
-    }
-
-    private void handlePlayerTwo(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_W:
-                if (currentDirection2 != Direction.DOWN) {
-                    currentDirection2 = Direction.UP;
-                }
-                break;
-            case KeyEvent.VK_S:
-                if (currentDirection2 != Direction.UP) {
-                    currentDirection2 = Direction.DOWN;
-                }
-                break;
-            case KeyEvent.VK_D:
-                if (currentDirection2 != Direction.LEFT) {
-                    currentDirection2 = Direction.RIGHT;
-                }
-            case KeyEvent.VK_A:
-                if (currentDirection2 != Direction.RIGHT) {
-                    currentDirection2 = Direction.LEFT;
-                }
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
+            if (playerOne.getCurrentDirection() != Direction.DOWN) {
+                playerOne.setCurrentDirection(Direction.UP);
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (playerOne.getCurrentDirection() != Direction.UP) {
+                playerOne.setCurrentDirection(Direction.DOWN);
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            if (playerOne.getCurrentDirection() != Direction.LEFT) {
+                playerOne.setCurrentDirection(Direction.RIGHT);
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            if (playerOne.getCurrentDirection() != Direction.RIGHT) {
+                playerOne.setCurrentDirection(Direction.LEFT);
+            }
         }
-    }
-
-    private void handlePlayerOne(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_UP:
-                if (currentDirection1 != Direction.DOWN) {
-                    currentDirection1 = Direction.UP;
-                }
-                break;
-            case KeyEvent.VK_DOWN:
-                if (currentDirection1 != Direction.UP) {
-                    currentDirection1 = Direction.DOWN;
-                }
-                break;
-            case KeyEvent.VK_RIGHT:
-                if (currentDirection1 != Direction.LEFT) {
-                    currentDirection1 = Direction.RIGHT;
-                }
-                break;
-            case KeyEvent.VK_LEFT:
-                if (currentDirection1 != Direction.RIGHT) {
-                    currentDirection1 = Direction.LEFT;
-                }
+        if (e.getKeyCode() == KeyEvent.VK_W) {
+            if (playerTwo.getCurrentDirection() != Direction.DOWN) {
+                playerTwo.setCurrentDirection(Direction.UP);
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_S) {
+            if (playerTwo.getCurrentDirection() != Direction.UP) {
+                playerTwo.setCurrentDirection(Direction.DOWN);
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_D) {
+            if (playerTwo.getCurrentDirection() != Direction.LEFT) {
+                playerTwo.setCurrentDirection(Direction.RIGHT);
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_A) {
+            if (playerTwo.getCurrentDirection() != Direction.RIGHT) {
+                playerTwo.setCurrentDirection(Direction.LEFT);
+            }
         }
     }
 

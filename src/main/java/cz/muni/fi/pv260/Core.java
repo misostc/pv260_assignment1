@@ -4,7 +4,7 @@ import cz.muni.fi.pv260.graphics.ScreenManager;
 
 import java.awt.*;
 
-abstract class Core {
+public abstract class Core {
 
     protected ScreenManager screenManager;
     private boolean running;
