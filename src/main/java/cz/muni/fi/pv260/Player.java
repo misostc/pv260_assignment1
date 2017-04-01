@@ -1,5 +1,7 @@
 package cz.muni.fi.pv260;
 
+import cz.muni.fi.pv260.direction.Direction;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
