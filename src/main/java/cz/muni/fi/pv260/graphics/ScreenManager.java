@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.util.*;
+import java.util.Arrays;
 
 public class ScreenManager {
 
@@ -21,12 +21,19 @@ public class ScreenManager {
                     new DisplayMode(640, 480, 24, 0),
                     new DisplayMode(640, 480, 16, 0),
             };
-
+    private static ScreenManager INSTANCE;
     private final GraphicsDevice graphicsDevice;
 
-    public ScreenManager() {
+    private ScreenManager() {
         GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
         graphicsDevice = e.getDefaultScreenDevice();
+    }
+
+    public static ScreenManager getScreenManager() {
+        if (INSTANCE == null) {
+            INSTANCE = new ScreenManager();
+        }
+        return INSTANCE;
     }
 
 
