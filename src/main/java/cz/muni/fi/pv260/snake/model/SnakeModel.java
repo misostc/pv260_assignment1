@@ -5,35 +5,55 @@ import cz.muni.fi.pv260.engine.graphics.ScreenManager;
 import cz.muni.fi.pv260.engine.model.Model;
 
 import java.awt.*;
+import java.util.Collections;
 import java.util.Random;
 
 /**
  * Created by micha on 04.04.2017.
  */
 public class SnakeModel implements Model {
-    private SnakePlayer player;
-    private Point food;
 
-    public SnakeModel(SnakePlayer player, Point foodInitialPosition) {
+    private SnakePlayer player;
+    private SnakeFood food;
+
+    public SnakeModel(SnakePlayer player, SnakeFood initialFood) {
         this.player = player;
-        this.food = foodInitialPosition;
+        this.food = initialFood;
     }
 
     @Override
     public void updateModel() {
         moveSnake();
 
-        if (CollisionUtils.collidesWithPoint(player, food)) {
+        if (CollisionUtils.collides(player, player.getTailCollisionBox())) {
+            System.exit(0);
+        }
+
+        if (CollisionUtils.collides(player, food)) {
             growSnake();
+            moveSnake();
             generateNewFood();
         }
     }
 
+    public SnakePlayer getPlayer() {
+        return player;
+    }
+
+    public SnakeFood getFood() {
+        return food;
+    }
+
     private void generateNewFood() {
         Random r = new Random();
+        Point point = null;
+
         do {
-            this.food = new Point(r.nextInt(ScreenManager.getScreenManager().getWindowWidth()), r.nextInt(ScreenManager.getScreenManager().getWindowHeight()))
-        } while (!CollisionUtils.collidesWithPoint(player, food));
+            point = new Point(r.nextInt(ScreenManager.getScreenManager().getWindowWidth()), r.nextInt(ScreenManager.getScreenManager().getWindowHeight()));
+        } while (CollisionUtils.collides(player, point));
+
+        SnakeFood newFood = new SnakeFood(point, food.getColor());
+        this.food = newFood;
     }
 
 

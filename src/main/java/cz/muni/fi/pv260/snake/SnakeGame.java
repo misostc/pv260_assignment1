@@ -5,6 +5,7 @@ import cz.muni.fi.pv260.engine.input.InputHandler;
 import cz.muni.fi.pv260.engine.model.Direction;
 import cz.muni.fi.pv260.snake.graphics.SnakeGraphics;
 import cz.muni.fi.pv260.snake.input.SnakeKeyboardDirectionInput;
+import cz.muni.fi.pv260.snake.model.SnakeFood;
 import cz.muni.fi.pv260.snake.model.SnakeModel;
 import cz.muni.fi.pv260.snake.model.SnakePlayer;
 
@@ -23,7 +24,8 @@ public class SnakeGame {
                 KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT);
 
 
-        SnakeModel snakeModel = new SnakeModel(player);
+        SnakeFood food = new SnakeFood(new Point(100,10), Color.GREEN);
+        SnakeModel snakeModel = new SnakeModel(player, food);
 
         SnakeGraphics snakeGraphics = new SnakeGraphics(snakeModel);
 
