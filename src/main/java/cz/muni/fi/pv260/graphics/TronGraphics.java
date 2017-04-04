@@ -16,8 +16,9 @@ public class TronGraphics implements Graphics {
 
     @Override
     public void draw(Graphics2D graphics) {
+        Window window = ScreenManager.getScreenManager().getFullScreenWindow();
         graphics.setColor(Color.BLACK);
-        graphics.fillRect(0, 0, ScreenManager.getScreenManager().getWindowWidth(), ScreenManager.getScreenManager().getWindowHeight());
+        graphics.fillRect(0, 0, window.getWidth(),window.getHeight());
 
         for (Player player : tronModel.getPlayers()) {
             paintPlayer(player, graphics);

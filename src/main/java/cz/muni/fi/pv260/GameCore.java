@@ -55,7 +55,7 @@ public final class GameCore implements KeyListener, MouseListener {
             ScreenManager.getScreenManager().finishDrawing(context);
 
             try {
-                Thread.sleep(20);
+                Thread.sleep(30);
             } catch (Exception ex) {
             }
         }
@@ -79,12 +79,10 @@ public final class GameCore implements KeyListener, MouseListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        handleInput(e);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        handleInput(e);
     }
 
     @Override

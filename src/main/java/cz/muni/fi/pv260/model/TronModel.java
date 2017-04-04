@@ -1,5 +1,6 @@
 package cz.muni.fi.pv260.model;
 
+import cz.muni.fi.pv260.collision.CollisionUtils;
 import cz.muni.fi.pv260.graphics.ScreenManager;
 
 import java.awt.*;
@@ -25,41 +26,19 @@ public class TronModel implements Model {
     }
 
 
-    private boolean hasPlayerCollidedWithHimself(Player player1) {
-        for (int i = 0; i < player1.getPoints().size() - 1; i++) {
-            if (player1.getLatestPoint().equals(player1.getPoints().get(i))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean havePlayersCollided(Player player1, Player player2) {
-        for (Point player1Point : player1.getPoints()) {
-            for (Point player2Point : player2.getPoints()) {
-                if (player1Point.equals(player2Point)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     @Override
     public void updateModel() {
         // update movement
         for (Player player : players) {
             movePlayer(player);
         }
+        checkForCollision();
+    }
 
-        // detect collision
-        for (Player player1 : players) {
-            if (hasPlayerCollidedWithHimself(player1)) {
-                System.exit(0);
-            }
-
-            for (Player player2 : players) {
-                if (player1 != player2 && havePlayersCollided(player1, player2)) {
+    private void checkForCollision(){
+        for (Player player1 : players){
+            for (Player player2 : players){
+                if (CollisionUtils.collides(player1,player2)){
                     System.exit(0);
                 }
             }
@@ -68,6 +47,7 @@ public class TronModel implements Model {
 
 
     private void movePlayer(Player player) {
+        Window window = ScreenManager.getScreenManager().getFullScreenWindow();
         Point latest = player.getLatestPoint();
         int x = (int) latest.getX();
         int y = (int) latest.getY();
@@ -76,7 +56,7 @@ public class TronModel implements Model {
                 if (y > 0) {
                     y -= MOVE_AMOUNT;
                 } else {
-                    y = ScreenManager.getScreenManager().getWindowHeight();
+                    y = window.getHeight();
                 }
                 break;
             case RIGHT:
@@ -97,7 +77,7 @@ public class TronModel implements Model {
                 if (x > 0) {
                     x -= MOVE_AMOUNT;
                 } else {
-                    x = ScreenManager.getScreenManager().getWindowWidth();
+                    x = window.getWidth();
                 }
                 break;
         }
