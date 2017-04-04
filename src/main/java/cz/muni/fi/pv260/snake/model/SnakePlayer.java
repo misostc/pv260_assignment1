@@ -8,6 +8,7 @@ import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
+import java.util.stream.Collectors;
 
 /**
  * Created by micha on 04.04.2017.
@@ -50,9 +51,7 @@ public class SnakePlayer implements Collidable {
         return new Collidable() {
             @Override
             public Collection<Point> getBoundingPoints() {
-                Deque<Point> copy = new ArrayDeque<>(snake);
-                copy.removeFirst();
-                return Collections.unmodifiableCollection(copy);
+                return snake.stream().skip(1).collect(Collectors.toList());
             }
         };
     }

@@ -7,6 +7,8 @@ import cz.muni.fi.pv260.snake.model.SnakeModel;
 import java.awt.*;
 import java.util.Deque;
 
+import static cz.muni.fi.pv260.snake.SnakeGame.SCALE_FACTOR;
+
 
 /**
  * Created by micha on 04.04.2017.
@@ -33,12 +35,12 @@ public class SnakeGraphics implements Graphics {
         Deque<Point> snake = snakeModel.getPlayer().getSnake();
         for (Point point: snake) {
             graphics.setColor(snakeModel.getPlayer().getColor());
-            graphics.fillRect(point.x, point.y, 10, 10);
+            graphics.fillRect(point.x*SCALE_FACTOR, point.y*SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
         }
     }
 
     private void drawFood(Graphics2D graphics) {
         graphics.setColor(snakeModel.getFood().getColor());
-        graphics.fillRect(snakeModel.getFood().getPosition().x, snakeModel.getFood().getPosition().y, 10, 10);
+        graphics.fillRect(snakeModel.getFood().getPosition().x*SCALE_FACTOR, snakeModel.getFood().getPosition().y*SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
     }
 }

@@ -33,7 +33,7 @@ public class TronGame {
 
         TronGraphics tronGraphics = new TronGraphics(tronModel);
 
-        GameCore game = new GameCore(tronModel, tronGraphics);
+        GameCore game = new GameCore(tronModel, tronGraphics, 30);
         game.addInputHandler(player1Controls);
         game.addInputHandler(player2Controls);
 

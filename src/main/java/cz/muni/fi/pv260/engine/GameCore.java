@@ -16,10 +16,12 @@ public final class GameCore implements KeyListener, MouseListener {
     private final cz.muni.fi.pv260.engine.graphics.Graphics graphics;
     private final Set<InputHandler> handlers;
     private boolean running;
+    private final int frameDuration;
 
-    public GameCore(Model model, Graphics graphics) {
+    public GameCore(Model model, Graphics graphics, int frameDuration) {
         this.model = model;
         this.graphics = graphics;
+        this.frameDuration = frameDuration;
         handlers = new HashSet<>();
     }
 
@@ -55,7 +57,7 @@ public final class GameCore implements KeyListener, MouseListener {
             ScreenManager.getScreenManager().finishDrawing(context);
 
             try {
-                Thread.sleep(30);
+                Thread.sleep(frameDuration);
             } catch (Exception ex) {
             }
         }

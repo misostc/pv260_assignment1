@@ -8,6 +8,8 @@ import java.awt.*;
 import java.util.Collections;
 import java.util.Random;
 
+import static cz.muni.fi.pv260.snake.SnakeGame.SCALE_FACTOR;
+
 /**
  * Created by micha on 04.04.2017.
  */
@@ -25,13 +27,12 @@ public class SnakeModel implements Model {
     public void updateModel() {
         moveSnake();
 
-        if (CollisionUtils.collides(player, player.getTailCollisionBox())) {
+        if (CollisionUtils.collides(player.getTailCollisionBox(), player.getSnake().getFirst())) {
             System.exit(0);
         }
 
         if (CollisionUtils.collides(player, food)) {
             growSnake();
-            moveSnake();
             generateNewFood();
         }
     }
@@ -49,7 +50,7 @@ public class SnakeModel implements Model {
         Point point = null;
 
         do {
-            point = new Point(r.nextInt(ScreenManager.getScreenManager().getWindowWidth()), r.nextInt(ScreenManager.getScreenManager().getWindowHeight()));
+            point = new Point(r.nextInt(ScreenManager.getScreenManager().getWindowWidth() / SCALE_FACTOR), r.nextInt(ScreenManager.getScreenManager().getWindowHeight() / SCALE_FACTOR));
         } while (CollisionUtils.collides(player, point));
 
         SnakeFood newFood = new SnakeFood(point, food.getColor());
@@ -86,8 +87,8 @@ public class SnakeModel implements Model {
     }
 
     private Point checkPointBounds(Point newSnakeHead) {
-        int x = newSnakeHead.x % ScreenManager.getScreenManager().getWindowWidth();
-        int y = newSnakeHead.y % ScreenManager.getScreenManager().getWindowHeight();
+        int x = newSnakeHead.x % (ScreenManager.getScreenManager().getWindowWidth() / SCALE_FACTOR);
+        int y = newSnakeHead.y % (ScreenManager.getScreenManager().getWindowHeight() / SCALE_FACTOR);
         return new Point(x, y);
     }
 }

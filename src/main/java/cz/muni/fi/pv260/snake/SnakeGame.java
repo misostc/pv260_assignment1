@@ -17,6 +17,7 @@ import java.awt.event.KeyEvent;
  */
 public class SnakeGame {
 
+    public static final int SCALE_FACTOR = 10;
 
     public static void main(String[] args) {
         SnakePlayer player = new SnakePlayer(new Point(10, 10), Direction.RIGHT, Color.BLUE);
@@ -24,12 +25,12 @@ public class SnakeGame {
                 KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT);
 
 
-        SnakeFood food = new SnakeFood(new Point(100,10), Color.GREEN);
+        SnakeFood food = new SnakeFood(new Point(20,10), Color.GREEN);
         SnakeModel snakeModel = new SnakeModel(player, food);
 
         SnakeGraphics snakeGraphics = new SnakeGraphics(snakeModel);
 
-        GameCore game = new GameCore(snakeModel, snakeGraphics);
+        GameCore game = new GameCore(snakeModel, snakeGraphics, 100);
         game.addInputHandler(controls);
 
         game.run();
