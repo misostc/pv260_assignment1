@@ -37,6 +37,11 @@ public class TronModel implements Model {
     }
 
     private void checkForCollision(){
+        for (TronPlayer player : players){
+            if(CollisionUtils.collides(player,player.tail())){
+                System.exit(0);
+            }
+        }
         for (TronPlayer player1 : players){
             for (TronPlayer player2 : players){
                 if (CollisionUtils.collides(player1,player2)){

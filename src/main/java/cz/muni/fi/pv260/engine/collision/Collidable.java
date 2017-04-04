@@ -1,8 +1,8 @@
 package cz.muni.fi.pv260.engine.collision;
 
-import java.awt.geom.Rectangle2D;
+import java.awt.*;
+import java.util.Collection;
 
 public interface Collidable {
-    Rectangle2D getBoundingBox();
-    boolean collidesWith(Collidable other);
+    Collection<Point> getBoundingPoints();
 }

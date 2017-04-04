@@ -4,8 +4,11 @@ import cz.muni.fi.pv260.engine.collision.Collidable;
 import cz.muni.fi.pv260.engine.model.Direction;
 
 import java.awt.*;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class TronPlayer implements Collidable{
@@ -45,45 +48,11 @@ public class TronPlayer implements Collidable{
     }
 
     @Override
-    public Rectangle2D getBoundingBox() {
-        Rectangle result = new Rectangle();
-        points.forEach(p -> result.add(p));
-        return result;
+    public Collection<Point> getBoundingPoints() {
+        return Collections.unmodifiableCollection(points);
     }
 
-    @Override
-    public boolean collidesWith(Collidable other) {
-        if (other == null){
-            return false;
-        }
-        if (!(other instanceof TronPlayer)){
-            return false;
-        }
-        if (other == this){
-            return collidesWithSelf();
-        }
-        final TronPlayer player = (TronPlayer)other;
-        return collidesWithOtherPlayer(player);
-
-    }
-
-    private boolean collidesWithSelf() {
-        for (int i = 0; i < points.size() - 1; i++) {
-            if (getLatestPoint().equals(points.get(i))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean collidesWithOtherPlayer(TronPlayer other){
-        for (Point selfPoint : points){
-            for (Point otherPoint : other.getPoints()){
-                if (selfPoint.equals(otherPoint)){
-                    return true;
-                }
-            }
-        }
-        return false;
+    public Collidable tail(){
+        return () -> points.subList(1,points.size());
     }
 }
