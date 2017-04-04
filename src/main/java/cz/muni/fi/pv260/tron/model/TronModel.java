@@ -1,7 +1,8 @@
-package cz.muni.fi.pv260.model;
+package cz.muni.fi.pv260.tron.model;
 
-import cz.muni.fi.pv260.collision.CollisionUtils;
-import cz.muni.fi.pv260.graphics.ScreenManager;
+import cz.muni.fi.pv260.engine.collision.CollisionUtils;
+import cz.muni.fi.pv260.engine.graphics.ScreenManager;
+import cz.muni.fi.pv260.engine.model.Model;
 
 import java.awt.*;
 import java.util.Collection;
@@ -11,17 +12,17 @@ import java.util.Set;
 public class TronModel implements Model {
 
     private static final int MOVE_AMOUNT = 5;
-    private final Set<Player> players;
+    private final Set<TronPlayer> players;
 
     public TronModel() {
         this.players = new HashSet<>();
     }
 
-    public void addPlayer(Player p) {
+    public void addPlayer(TronPlayer p) {
         players.add(p);
     }
 
-    public Collection<Player> getPlayers() {
+    public Collection<TronPlayer> getPlayers() {
         return players;
     }
 
@@ -29,15 +30,15 @@ public class TronModel implements Model {
     @Override
     public void updateModel() {
         // update movement
-        for (Player player : players) {
+        for (TronPlayer player : players) {
             movePlayer(player);
         }
         checkForCollision();
     }
 
     private void checkForCollision(){
-        for (Player player1 : players){
-            for (Player player2 : players){
+        for (TronPlayer player1 : players){
+            for (TronPlayer player2 : players){
                 if (CollisionUtils.collides(player1,player2)){
                     System.exit(0);
                 }
@@ -46,7 +47,7 @@ public class TronModel implements Model {
     }
 
 
-    private void movePlayer(Player player) {
+    private void movePlayer(TronPlayer player) {
         Window window = ScreenManager.getScreenManager().getFullScreenWindow();
         Point latest = player.getLatestPoint();
         int x = (int) latest.getX();

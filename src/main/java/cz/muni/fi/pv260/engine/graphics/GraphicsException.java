@@ -1,4 +1,4 @@
-package cz.muni.fi.pv260.graphics;
+package cz.muni.fi.pv260.engine.graphics;
 
 public class GraphicsException extends RuntimeException {
 

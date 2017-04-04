@@ -1,11 +1,12 @@
-package cz.muni.fi.pv260.graphics;
+package cz.muni.fi.pv260.tron.graphics;
 
-import cz.muni.fi.pv260.model.Player;
-import cz.muni.fi.pv260.model.TronModel;
+import cz.muni.fi.pv260.engine.graphics.*;
+import cz.muni.fi.pv260.tron.model.TronModel;
+import cz.muni.fi.pv260.tron.model.TronPlayer;
 
 import java.awt.*;
 
-public class TronGraphics implements Graphics {
+public class TronGraphics implements cz.muni.fi.pv260.engine.graphics.Graphics {
 
     private final TronModel tronModel;
 
@@ -20,12 +21,12 @@ public class TronGraphics implements Graphics {
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, window.getWidth(),window.getHeight());
 
-        for (Player player : tronModel.getPlayers()) {
+        for (TronPlayer player : tronModel.getPlayers()) {
             paintPlayer(player, graphics);
         }
     }
 
-    private void paintPlayer(Player player, Graphics2D graphics) {
+    private void paintPlayer(TronPlayer player, Graphics2D graphics) {
         for (Point point : player.getPoints()) {
             graphics.setColor(player.getColor());
             graphics.fillRect((int) point.getX(), (int) point.getY(), 10, 10);

@@ -1,18 +1,9 @@
-package cz.muni.fi.pv260.input;
-
-import cz.muni.fi.pv260.model.Direction;
-import cz.muni.fi.pv260.model.Player;
+package cz.muni.fi.pv260.engine.input;
 
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 
-public class MouseInputHandler implements InputHandler {
-
-    private Player player;
-
-    public MouseInputHandler(Player player) {
-        this.player = player;
-    }
+public abstract class MouseClickInput implements InputHandler {
 
     @Override
     public void handleEvent(InputEvent event) {
@@ -24,10 +15,14 @@ public class MouseInputHandler implements InputHandler {
 
         if (mouseEvent.getID() == MouseEvent.MOUSE_CLICKED) {
             if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-                player.setCurrentDirection(Direction.rotateCounterClockwise(player.getCurrentDirection()));
+                leftClickPerformed();
             } else if (mouseEvent.getButton() == MouseEvent.BUTTON3) {
-                player.setCurrentDirection(Direction.rotateClockwise(player.getCurrentDirection()));
+                rightClickPerformed();
             }
         }
     }
+
+    protected abstract void rightClickPerformed();
+    protected abstract void leftClickPerformed();
+
 }

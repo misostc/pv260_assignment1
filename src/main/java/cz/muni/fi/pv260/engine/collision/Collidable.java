@@ -1,6 +1,5 @@
-package cz.muni.fi.pv260.collision;
+package cz.muni.fi.pv260.engine.collision;
 
-import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public interface Collidable {

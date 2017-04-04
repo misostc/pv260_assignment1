@@ -1,9 +1,9 @@
-package cz.muni.fi.pv260;
+package cz.muni.fi.pv260.engine;
 
-import cz.muni.fi.pv260.graphics.Graphics;
-import cz.muni.fi.pv260.graphics.ScreenManager;
-import cz.muni.fi.pv260.input.InputHandler;
-import cz.muni.fi.pv260.model.Model;
+import cz.muni.fi.pv260.engine.graphics.Graphics;
+import cz.muni.fi.pv260.engine.graphics.ScreenManager;
+import cz.muni.fi.pv260.engine.input.InputHandler;
+import cz.muni.fi.pv260.engine.model.Model;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -13,14 +13,14 @@ import java.util.Set;
 public final class GameCore implements KeyListener, MouseListener {
 
     private final Model model;
-    private final cz.muni.fi.pv260.graphics.Graphics graphics;
+    private final cz.muni.fi.pv260.engine.graphics.Graphics graphics;
     private final Set<InputHandler> handlers;
     private boolean running;
 
     public GameCore(Model model, Graphics graphics) {
         this.model = model;
         this.graphics = graphics;
-        handlers = new HashSet<InputHandler>();
+        handlers = new HashSet<>();
     }
 
 

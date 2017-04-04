@@ -1,4 +1,4 @@
-package cz.muni.fi.pv260.collision;
+package cz.muni.fi.pv260.engine.collision;
 
 /**
  * Created by priad on 03.04.2017.

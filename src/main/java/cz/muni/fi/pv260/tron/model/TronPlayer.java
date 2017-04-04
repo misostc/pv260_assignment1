@@ -1,20 +1,19 @@
-package cz.muni.fi.pv260.model;
+package cz.muni.fi.pv260.tron.model;
 
-import cz.muni.fi.pv260.collision.Collidable;
+import cz.muni.fi.pv260.engine.collision.Collidable;
+import cz.muni.fi.pv260.engine.model.Direction;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-public class Player implements Collidable{
+public class TronPlayer implements Collidable{
     private final Color color;
     private List<Point> points;
     private Direction currentDirection;
 
-    public Player(Point startingPoint, Direction startingDirection, Color color) {
+    public TronPlayer(Point startingPoint, Direction startingDirection, Color color) {
         this.currentDirection = startingDirection;
         this.color = color;
         points = new ArrayList<>();
@@ -57,13 +56,13 @@ public class Player implements Collidable{
         if (other == null){
             return false;
         }
-        if (!(other instanceof Player)){
+        if (!(other instanceof TronPlayer)){
             return false;
         }
         if (other == this){
             return collidesWithSelf();
         }
-        final Player player = (Player)other;
+        final TronPlayer player = (TronPlayer)other;
         return collidesWithOtherPlayer(player);
 
     }
@@ -77,7 +76,7 @@ public class Player implements Collidable{
         return false;
     }
 
-    private boolean collidesWithOtherPlayer(Player other){
+    private boolean collidesWithOtherPlayer(TronPlayer other){
         for (Point selfPoint : points){
             for (Point otherPoint : other.getPoints()){
                 if (selfPoint.equals(otherPoint)){

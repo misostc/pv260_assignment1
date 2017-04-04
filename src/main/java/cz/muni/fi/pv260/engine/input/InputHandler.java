@@ -1,4 +1,4 @@
-package cz.muni.fi.pv260.input;
+package cz.muni.fi.pv260.engine.input;
 
 import java.awt.event.InputEvent;
 
